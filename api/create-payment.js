@@ -17,6 +17,7 @@ export default function handler(req, res) {
 }).replace(/\//g, '/');
 const amount = parseInt(req.query.amount, 10) || 1000;
 const itemName = req.query.itemName || "VIP方案";
+console.log("📦 參數來了 => 金額:", amount, "| 商品名稱:", itemName);
 const rawParams = {
   MerchantID,
   MerchantTradeNo: tradeNo,
