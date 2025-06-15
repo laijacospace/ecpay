@@ -25,7 +25,7 @@ const rawParams = {
   TotalAmount: amount.toString(),
   TradeDesc: "VIP購買",
   ItemName: itemName,
-  ReturnURL: "https://你的網域/api/payment-return",
+  ReturnURL: "https://ecpay-1f26tagv7-laijas-projects.vercel.app/api/payment-return",
   ChoosePayment: "Credit",
   EncryptType: "1",
 };
