@@ -16,6 +16,10 @@ export default function handler(req, res) {
     hour12: false
   }).replace(/\//g, '/');
 
+  // ✅ 寫死金額與品名
+  const amount = 299;
+  const itemName = "一般會員";
+
   const rawParams = {
     MerchantID,
     MerchantTradeNo: tradeNo,
