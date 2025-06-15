@@ -16,9 +16,11 @@ export default function handler(req, res) {
     hour12: false
   }).replace(/\//g, '/');
 
-  // ✅ 寫死金額與品名
-  const amount = 299;
-  const itemName = "一般會員";
+  // ✅ 從 query 拿動態金額與品名
+  const amount = parseInt(req.query.amount, 10) || 299;
+  const itemName = req.query.itemName || "一般VIP方案";
+
+  console.log("💰 建立訂單 =>", itemName, "金額:", amount);
 
   const rawParams = {
     MerchantID,
@@ -28,7 +30,7 @@ export default function handler(req, res) {
     TotalAmount: amount.toString(),
     TradeDesc: "VIP購買",
     ItemName: itemName,
-    ReturnURL: "https://ecpay-1f26tagv7-laijas-projects.vercel.app/api/payment-return",
+    ReturnURL: "https://ecpay.vercel.app/api/payment-return",
     ChoosePayment: "Credit",
     EncryptType: "1",
   };
