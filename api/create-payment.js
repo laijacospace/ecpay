@@ -16,11 +16,13 @@ export default function handler(req, res) {
     hour12: false
   }).replace(/\//g, '/');
 
-  // ✅ 從 query 拿動態金額與品名
+  // ✅ 從前端取得參數
   const amount = parseInt(req.query.amount, 10) || 299;
   const itemName = req.query.itemName || "一般VIP方案";
-
-  console.log("💰 建立訂單 =>", itemName, "金額:", amount);
+  const email = req.query.email || "";
+  const invoiceType = req.query.invoiceType || "";
+  const carrier = req.query.carrier || "";
+  const companyTaxId = req.query.companyTaxId || "";
 
   const rawParams = {
     MerchantID,
@@ -30,9 +32,15 @@ export default function handler(req, res) {
     TotalAmount: amount.toString(),
     TradeDesc: "VIP購買",
     ItemName: itemName,
-    ReturnURL: "https://ecpay.vercel.app/api/payment-return",
+    ReturnURL: "https://ecpay.vercel.app/api/payment-return", // 待你新增
     ChoosePayment: "Credit",
     EncryptType: "1",
+
+    // ✅ 傳給付款成功回傳的備用欄位（會傳給 payment-return）
+    CustomField1: email,
+    CustomField2: invoiceType,
+    CustomField3: carrier,
+    CustomField4: companyTaxId
   };
 
   const query = Object.entries(rawParams)
