@@ -15,19 +15,20 @@ export default function handler(req, res) {
   second: '2-digit',
   hour12: false
 }).replace(/\//g, '/');
-
-  const rawParams = {
-    MerchantID,
-    MerchantTradeNo: tradeNo,
-    MerchantTradeDate: tradeDate,
-    PaymentType: "aio",
-    TotalAmount: "1000",
-    TradeDesc: "測試訂單",
-    ItemName: "測試商品一件",
-    ReturnURL: "https://你的網域/api/payment-return",
-    ChoosePayment: "Credit",
-    EncryptType: "1",
-  };
+const amount = parseInt(req.query.amount, 10) || 1000;
+const itemName = req.query.itemName || "VIP方案";
+const rawParams = {
+  MerchantID,
+  MerchantTradeNo: tradeNo,
+  MerchantTradeDate: tradeDate,
+  PaymentType: "aio",
+  TotalAmount: amount.toString(),
+  TradeDesc: "VIP購買",
+  ItemName: itemName,
+  ReturnURL: "https://你的網域/api/payment-return",
+  ChoosePayment: "Credit",
+  EncryptType: "1",
+};
 
   const query = Object.entries(rawParams)
     .sort(([a], [b]) => a.localeCompare(b))
