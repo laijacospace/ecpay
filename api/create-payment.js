@@ -1,35 +1,33 @@
-export default function handler(req, res) {
-  const crypto = require("crypto");
+const crypto = require("crypto");
 
+export default function handler(req, res) {
   const HashKey = "5294y06JbISpM5x9";
   const HashIV = "v77hoKGq4kWxNNIS";
   const MerchantID = "2000132";
 
   const tradeNo = "TEST" + Date.now();
   const tradeDate = new Date().toLocaleString('zh-TW', {
-  year: 'numeric',
-  month: '2-digit',
-  day: '2-digit',
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit',
-  hour12: false
-}).replace(/\//g, '/');
-const amount = parseInt(req.query.amount, 10) || 1000;
-const itemName = req.query.itemName || "VIP方案";
-console.log("📦 參數來了 => 金額:", amount, "| 商品名稱:", itemName);
-const rawParams = {
-  MerchantID,
-  MerchantTradeNo: tradeNo,
-  MerchantTradeDate: tradeDate,
-  PaymentType: "aio",
-  TotalAmount: amount.toString(),
-  TradeDesc: "VIP購買",
-  ItemName: itemName,
-  ReturnURL: "https://ecpay-1f26tagv7-laijas-projects.vercel.app/api/payment-return",
-  ChoosePayment: "Credit",
-  EncryptType: "1",
-};
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  }).replace(/\//g, '/');
+
+  const rawParams = {
+    MerchantID,
+    MerchantTradeNo: tradeNo,
+    MerchantTradeDate: tradeDate,
+    PaymentType: "aio",
+    TotalAmount: amount.toString(),
+    TradeDesc: "VIP購買",
+    ItemName: itemName,
+    ReturnURL: "https://ecpay-1f26tagv7-laijas-projects.vercel.app/api/payment-return",
+    ChoosePayment: "Credit",
+    EncryptType: "1",
+  };
 
   const query = Object.entries(rawParams)
     .sort(([a], [b]) => a.localeCompare(b))
